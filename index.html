@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HerRhythm — A 12-week women's running program that works with your cycle. Cycle-synced training, personalised coaching, community runs in Bangalore." />
+  <title>HerRhythm — Run With Your Cycle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --pink:           #C4567A;
+      --pink-light:     #D4728E;
+      --pink-deep:      #A33D5E;
+      --pink-muted:     rgba(196, 86, 122, 0.09);
+      --pink-glow:      rgba(196, 86, 122, 0.13);
+      --cream:          #FBF7F4;
+      --cream-warm:     #F5EDE7;
+      --charcoal:       #2A2025;
+      --text:           #3D2E35;
+      --text-secondary: #7A6870;
+      --text-muted:     #B0A0A8;
+      --white:          #FFFFFF;
+      --border:         #E8DDE2;
+
+      --phase-menstrual:  #C4523E;
+      --phase-follicular: #4D8B5F;
+      --phase-ovulatory:  #C99A2E;
+      --phase-luteal:     #7E5EA0;
+
+      --heading: 'Playfair Display', Georgia, serif;
+      --body:    'Plus Jakarta Sans', -apple-system, sans-serif;
+
+      --radius:    16px;
+      --radius-sm: 10px;
+      --max-w:     1200px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      color: var(--text);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Utility ── */
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--heading);
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+      max-width: 560px;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: var(--pink);
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: var(--radius-sm);
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--pink-deep); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 16px 36px;
+      border-radius: var(--radius-sm);
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(251, 247, 244, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img {
+      height: 40px;
+      mix-blend-mode: multiply;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-cta {
+      background: var(--pink) !important;
+      color: var(--white) !important;
+      padding: 10px 24px !important;
+      border-radius: var(--radius-sm);
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--pink-deep) !important; }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--charcoal);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px 28px;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 99;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav .nav-cta {
+      margin-top: 8px;
+      text-align: center;
+      border-radius: var(--radius-sm);
+      padding: 14px 24px !important;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 140px 48px 90px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      align-items: center;
+      min-height: 90vh;
+    }
+    .hero-content h1 {
+      font-family: var(--heading);
+      font-size: 56px;
+      line-height: 1.1;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 24px;
+      text-wrap: balance;
+    }
+    .hero-content h1 em {
+      font-style: italic;
+      color: var(--pink);
+    }
+    .hero-content p {
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      margin-top: 32px;
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .hero-stats strong { color: var(--charcoal); }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-circle {
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-glow) 0%, var(--cream-warm) 50%, var(--pink-muted) 100%);
+      border: 2px solid rgba(196, 86, 122, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .hero-circle img {
+      width: 260px;
+      mix-blend-mode: multiply;
+    }
+    .phase-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 3px solid var(--cream);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* ── Manifesto ── */
+    .manifesto {
+      padding: 80px 48px;
+      text-align: center;
+      background: var(--charcoal);
+      color: var(--white);
+    }
+    .manifesto-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .manifesto h2 {
+      font-family: var(--heading);
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+    .manifesto h2 em { font-style: italic; color: var(--pink-light); }
+    .manifesto p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    /* ── Phases ── */
+    .phases {
+      padding: 100px 48px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .phase-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      border-top: 4px solid;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .phase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(196, 86, 122, 0.08);
+    }
+    .phase-card h3 {
+      font-family: var(--heading);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .phase-card .phase-days {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .phase-card p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .phase-card .phase-focus {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 20px;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Program ── */
+    .program {
+      padding: 100px 48px;
+      background: var(--cream-warm);
+    }
+    .program-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .program-features {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      align-items: start;
+      transition: box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 5px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    /* ── How it works ── */
+    .how {
+      padding: 100px 48px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .how-header { text-align: center; }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+      position: relative;
+    }
+    /* Connector line between steps */
+    .how-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 28px);
+      right: calc(16.66% + 28px);
+      height: 1px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .step {
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-number {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--pink-muted);
+      color: var(--pink);
+      font-family: var(--heading);
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      border: 2px solid rgba(196, 86, 122, 0.2);
+    }
+    .step h3 {
+      font-family: var(--heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    /* ── Testimonial ── */
+    .testimonial {
+      padding: 100px 48px;
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+    }
+    .testimonial-inner { max-width: 640px; margin: 0 auto; }
+    .testimonial-quote-mark {
+      font-family: var(--heading);
+      font-size: 80px;
+      line-height: 0.6;
+      color: var(--pink);
+      opacity: 0.4;
+      display: block;
+      margin-bottom: 28px;
+    }
+    .testimonial blockquote {
+      font-family: var(--heading);
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.45;
+      font-style: italic;
+      margin-bottom: 28px;
+      color: rgba(255, 255, 255, 0.92);
+    }
+    .testimonial cite {
+      font-family: var(--body);
+      font-style: normal;
+      font-size: 14px;
+      color: var(--pink-light);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 100px 48px;
+      text-align: center;
+    }
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta h2 {
+      font-family: var(--heading);
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .cta h2 em { font-style: italic; color: var(--pink); }
+    .cta > .cta-inner > p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    .cta-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .cta-stat {
+      text-align: center;
+    }
+    .cta-stat .val {
+      font-family: var(--heading);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--charcoal);
+      display: block;
+    }
+    .cta-stat .label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      display: block;
+    }
+    .cta-divider {
+      width: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+    .cta-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .cta-note a {
+      color: var(--pink);
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .cta-note a:hover { opacity: 0.8; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 36px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .foot-logo img {
+      height: 34px;
+      mix-blend-mode: multiply;
+    }
+    .foot-links {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .foot-links a { transition: color 0.2s; }
+    .foot-links a:hover { color: var(--pink); }
+    .foot-loc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .phase-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero {
+        gap: 40px;
+      }
+      .hero-content h1 { font-size: 46px; }
+      .hero-circle { width: 340px; height: 340px; }
+      .hero-circle img { width: 210px; }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 24px;
+      }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 24px 60px;
+        min-height: auto;
+        gap: 48px;
+        text-align: center;
+      }
+      .hero-content h1 { font-size: 38px; }
+      .hero-content p { font-size: 16px; max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-circle { width: 280px; height: 280px; }
+      .hero-circle img { width: 170px; }
+
+      .manifesto { padding: 64px 24px; }
+      .manifesto h2 { font-size: 30px; }
+      .manifesto p { font-size: 15px; }
+
+      .phases { padding: 64px 24px; }
+      .section-title { font-size: 30px; }
+      .phase-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .program { padding: 64px 24px; }
+      .program-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .how { padding: 64px 24px; }
+      .how-steps {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-top: 40px;
+      }
+      .how-steps::before { display: none; }
+
+      .testimonial { padding: 64px 24px; }
+      .testimonial blockquote { font-size: 20px; }
+
+      .cta { padding: 64px 24px; }
+      .cta h2 { font-size: 32px; }
+      .cta-stats { gap: 24px; }
+      .cta-stat .val { font-size: 26px; }
+
+      footer {
+        padding: 28px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .btn-primary, .btn-secondary { padding: 14px 28px; font-size: 15px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 { font-size: 32px; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-secondary { width: 100%; justify-content: center; }
+      .hero-circle { width: 240px; height: 240px; }
+      .hero-circle img { width: 145px; }
+      .cta-stats { flex-direction: column; gap: 16px; }
+      .cta-stat .val { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a class="nav-logo" href="#" aria-label="HerRhythm home">
+      <img src="assets/herrhythm-logo-dark.png" alt="HerRhythm" />
+    </a>
+    <div class="nav-links">
+      <a href="#phases">The Science</a>
+      <a href="#program">Program</a>
+      <a href="#how">How It Works</a>
+      <a href="#cta" class="nav-cta">Join the Cohort</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#phases" onclick="toggleMenu()">The Science</a>
+    <a href="#program" onclick="toggleMenu()">Program</a>
+    <a href="#how" onclick="toggleMenu()">How It Works</a>
+    <a href="#cta" class="nav-cta" onclick="toggleMenu()">Join the Cohort</a>
+  </div>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Women don't train in straight lines. We train in <em>seasons.</em></h1>
+      <p>A 12-week women's running program that works with your cycle, not against it. Personalised coaching, community runs, and a whole lot of support.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
+          Join Cohort 5 →
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('phases').scrollIntoView({behavior:'smooth'})">
+          Learn More
+        </button>
+      </div>
+      <div class="hero-stats">
+        <span><strong>12</strong> weeks</span>
+        <span><strong>5K / 10K</strong> goal</span>
+        <span><strong>Bangalore</strong> based</span>
+        <span>Spots limited</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-circle">
+        <img src="assets/herrhythm-logo-dark.png" alt="HerRhythm" />
+        <!-- Phase dots at cardinal positions -->
+        <div class="phase-dot" style="top: 18px; left: 50%; transform: translateX(-50%); background: var(--phase-menstrual);"></div>
+        <div class="phase-dot" style="right: 18px; top: 50%; transform: translateY(-50%); background: var(--phase-follicular);"></div>
+        <div class="phase-dot" style="bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--phase-ovulatory);"></div>
+        <div class="phase-dot" style="left: 18px; top: 50%; transform: translateY(-50%); background: var(--phase-luteal);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Manifesto ── -->
+  <section class="manifesto">
+    <div class="manifesto-inner">
+      <h2>Your body changes every week. Your training should <em>too.</em></h2>
+      <p>Most running programs treat every week the same. But your energy, strength, and recovery shift with your menstrual cycle. HerRhythm is the first running program in India designed around these natural rhythms — so you train smarter, feel stronger, and actually enjoy the process.</p>
+    </div>
+  </section>
+
+  <!-- ── Phases ── -->
+  <section class="phases" id="phases">
+    <div class="section-label">The Science</div>
+    <div class="section-title">Four phases. Four training strategies.</div>
+    <div class="section-subtitle">Each phase of your cycle brings different strengths. We design your training to match — not fight — what your body is doing.</div>
+    <div class="phase-grid">
+
+      <div class="phase-card" style="border-top-color: var(--phase-menstrual);">
+        <h3 style="color: var(--phase-menstrual);">Menstrual</h3>
+        <div class="phase-days">Days 1 – 5</div>
+        <p>Your body is recovering. We honour that with gentle movement, shorter distances, and recovery-focused sessions. No guilt, no pressure.</p>
+        <div class="phase-focus" style="background: rgba(196,82,62,0.08); color: var(--phase-menstrual);">Recovery &amp; rest</div>
+      </div>
+
+      <div class="phase-card" style="border-top-color: var(--phase-follicular);">
+        <h3 style="color: var(--phase-follicular);">Follicular</h3>
+        <div class="phase-days">Days 6 – 13</div>
+        <p>Energy rises. Estrogen climbs. This is when we build — increasing volume, adding strength work, and preparing for your peak.</p>
+        <div class="phase-focus" style="background: rgba(77,139,95,0.08); color: var(--phase-follicular);">Build &amp; grow</div>
+      </div>
+
+      <div class="phase-card" style="border-top-color: var(--phase-ovulatory);">
+        <h3 style="color: var(--phase-ovulatory);">Ovulatory</h3>
+        <div class="phase-days">Days 14 – 16</div>
+        <p>Your power week. Strength, speed, and endurance peak. We push tempo runs, intervals, and longer distances here.</p>
+        <div class="phase-focus" style="background: rgba(201,154,46,0.08); color: var(--phase-ovulatory);">Peak performance</div>
+      </div>
+
+      <div class="phase-card" style="border-top-color: var(--phase-luteal);">
+        <h3 style="color: var(--phase-luteal);">Luteal</h3>
+        <div class="phase-days">Days 17 – 28</div>
+        <p>Progesterone rises. We taper effort, maintain consistency, and focus on moderate steady-state work as your body prepares to reset.</p>
+        <div class="phase-focus" style="background: rgba(126,94,160,0.08); color: var(--phase-luteal);">Maintain &amp; taper</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Program ── -->
+  <section class="program" id="program">
+    <div class="program-inner">
+      <div>
+        <div class="section-label">The Program</div>
+        <div class="section-title">Run with intention.</div>
+        <div class="section-subtitle" style="margin-bottom: 0;">A 12-week women-specific running program to run your first 5K or 10K. Personalised coaching, community accountability, and cycle-aware training — all in one.</div>
+      </div>
+      <div class="program-features">
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: var(--pink-muted); color: var(--pink);">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <h3>Personalised weekly plans</h3>
+            <p>Your coach Shruti builds your plan every week based on where you are in your cycle, your feedback, and your goals.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(77,139,95,0.08); color: var(--phase-follicular);">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 3C8 3 5 7 5 12s3 9 7 9 7-4 7-9-3-9-7-9z" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Cycle-synced training</h3>
+            <p>Log your period. Shruti adjusts your training intensity, volume, and rest days accordingly. No cookie-cutter plans.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(201,154,46,0.08); color: var(--phase-ovulatory);">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M17 20H7L4 8l8-5 8 5-3 12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <h3>Community runs in Bangalore</h3>
+            <p>Weekend group runs with women who get it. Train together, motivate each other, and celebrate every milestone.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(126,94,160,0.08); color: var(--phase-luteal);">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>WhatsApp-first coaching</h3>
+            <p>Plans, feedback, check-ins — all through WhatsApp. No app to download. Just your coach, a message away.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How it works ── -->
+  <section class="how" id="how">
+    <div class="how-header">
+      <div class="section-label">How It Works</div>
+      <div class="section-title" style="margin: 0 auto 8px;">Three steps to running <em style="font-style: italic; color: var(--pink);">your</em> way.</div>
+    </div>
+    <div class="how-steps">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Sign up &amp; share your cycle</h3>
+        <p>Tell us about your running experience, goals, and cycle. If you have PCOS, irregular periods, or any conditions — we want to know. Every body is different.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Get your weekly plan</h3>
+        <p>Shruti sends your personalised plan every week via WhatsApp. Log your runs, share feedback, and she adjusts as you go.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Run, log, repeat</h3>
+        <p>Follow your plan, join community runs, log your period and symptoms. Watch yourself get stronger — season by season.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Testimonial ── -->
+  <section class="testimonial">
+    <div class="testimonial-inner">
+      <span class="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>I used to push through cramps and feel terrible. Now I know when to push and when to rest. I ran my first 10K feeling strong the entire way.</blockquote>
+      <cite>— Cohort 3 runner, Bangalore</cite>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta" id="cta">
+    <div class="cta-inner">
+      <h2>Ready to run with <em>your rhythm?</em></h2>
+      <p>Cohort 5 starts soon. Limited spots — we keep groups small so every runner gets personalised attention.</p>
+      <div class="cta-stats">
+        <div class="cta-stat">
+          <span class="val">12</span>
+          <span class="label">Weeks</span>
+        </div>
+        <div class="cta-stat">
+          <span class="val">5K / 10K</span>
+          <span class="label">Your goal</span>
+        </div>
+        <div class="cta-stat">
+          <span class="val">18</span>
+          <span class="label">Spots per cohort</span>
+        </div>
+      </div>
+      <button class="btn-primary" style="font-size: 17px; padding: 18px 52px;">Join Cohort 5 →</button>
+      <p class="cta-note">Questions? DM us on <a href="https://instagram.com/herrhythm.in" target="_blank" rel="noopener">@herrhythm.in</a></p>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <a class="foot-logo" href="#" aria-label="HerRhythm home">
+      <img src="assets/herrhythm-logo-dark.png" alt="HerRhythm" />
+    </a>
+    <div class="foot-links">
+      <a href="https://instagram.com/herrhythm.in" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@herrhythm.in">Contact</a>
+    </div>
+    <div class="foot-loc">Bangalore, India</div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('open');
+    }
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', function(e) {
+      const nav = document.getElementById('mobileNav');
+      const hamburger = document.querySelector('.nav-hamburger');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !hamburger.contains(e.target)) {
+        nav.classList.remove('open');
+      }
+    });
+
+    // Subtle scroll shadow on nav
+    const navEl = document.querySelector('nav');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 10) {
+        navEl.style.boxShadow = '0 2px 20px rgba(42,32,37,0.06)';
+      } else {
+        navEl.style.boxShadow = 'none';
+      }
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
